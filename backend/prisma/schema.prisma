@@ -1,0 +1,122 @@
+// // schema.prisma
+
+// generator client {
+//   provider = "prisma-client-js"
+//   output   = "../src/generated/prisma"
+// }
+
+// datasource db {
+//   provider  = "postgresql"
+//   // url       = env("DATABASE_URL")
+// }
+
+        
+
+// model Distributor {
+//   id        BigInt   @id @default(autoincrement()) @db.BigInt
+//   code      String   @unique
+//   name      String
+//   memo      String?  @db.Text
+//   createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz
+//   updatedAt DateTime @default(now()) @map("updated_at") @db.Timestamptz
+
+//   users  User[]
+//   orders Order[]
+
+//   @@map("distributors")
+// }
+
+// model Store {
+//   id        BigInt   @id @default(autoincrement()) @db.BigInt
+//   name      String
+//   code      String   @unique
+//   createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz
+//   updatedAt DateTime @default(now()) @map("updated_at") @db.Timestamptz
+
+//   orders Order[]
+
+//   @@map("stores")
+// }
+
+// model Product {
+//   id        BigInt   @id @default(autoincrement()) @db.BigInt
+//   name      String
+//   category  String
+//   unit      String   @default("BOX")
+//   isActive  Boolean  @default(true) @map("is_active")
+//   createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz
+//   updatedAt DateTime @default(now()) @map("updated_at") @db.Timestamptz
+
+//   productOptions ProductOption[]
+//   orderItems     OrderItem[]
+
+//   @@map("products")
+// }
+
+// model ProductOption {
+//   id         BigInt   @id @default(autoincrement()) @db.BigInt
+//   productId  BigInt   @map("product_id")
+//   name       String
+//   spec       String
+//   price      Int      @default(0)
+//   sortOrder  Int      @default(0) @map("sort_order")
+//   isActive   Boolean  @default(true) @map("is_active")
+//   createdAt  DateTime @default(now()) @map("created_at") @db.Timestamptz
+//   updatedAt  DateTime @default(now()) @map("updated_at") @db.Timestamptz
+
+//   product    Product     @relation(fields: [productId], references: [id])
+//   orderItems OrderItem[]
+
+//   @@map("product_options")
+// }
+
+// model User {
+//   id            BigInt   @id @default(autoincrement()) @db.BigInt
+//   email         String   @unique
+//   password      String
+//   name          String
+//   role          String   // 'ADMIN' | 'DISTRIBUTOR' (TEXT 컬럼)
+//   distributorId BigInt?  @map("distributor_id")
+//   createdAt     DateTime @default(now()) @map("created_at") @db.Timestamptz
+//   updatedAt     DateTime @default(now()) @map("updated_at") @db.Timestamptz
+
+//   distributor Distributor? @relation(fields: [distributorId], references: [id])
+//   orders      Order[]
+
+//   @@map("users")
+// }
+
+// model Order {
+//   id            BigInt    @id @default(autoincrement()) @db.BigInt
+//   distributorId BigInt    @map("distributor_id")
+//   userId        BigInt    @map("user_id")
+//   storeId       BigInt?   @map("store_id")
+//   status        String    @default("DRAFT") // DRAFT, SUBMITTED, CONFIRMED, CANCELED...
+//   totalAmount   Int       @default(0) @map("total_amount")
+//   createdAt     DateTime  @default(now()) @map("created_at") @db.Timestamptz
+//   updatedAt     DateTime  @default(now()) @map("updated_at") @db.Timestamptz
+//   submittedAt   DateTime? @map("submitted_at") @db.Timestamptz
+
+//   distributor Distributor @relation(fields: [distributorId], references: [id])
+//   user        User        @relation(fields: [userId], references: [id])
+//   store       Store?      @relation(fields: [storeId], references: [id])
+//   items       OrderItem[]
+
+//   @@map("orders")
+// }
+
+// model OrderItem {
+//   id              BigInt  @id @default(autoincrement()) @db.BigInt
+//   orderId         BigInt  @map("order_id")
+//   productId       BigInt  @map("product_id")
+//   productOptionId BigInt  @map("product_option_id")
+//   quantity        Int
+//   unitPrice       Int     @default(0) @map("unit_price")
+//   lineTotal       Int     @default(0) @map("line_total")
+
+//   order         Order         @relation(fields: [orderId], references: [id])
+//   product       Product       @relation(fields: [productId], references: [id])
+//   productOption ProductOption @relation(fields: [productOptionId], references: [id])
+
+//   @@map("order_items")
+// }
