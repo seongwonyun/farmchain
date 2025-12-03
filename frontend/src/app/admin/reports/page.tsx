@@ -52,7 +52,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
 
 export default function OrderReportPage() {
   const router = useRouter();
@@ -103,18 +103,15 @@ export default function OrderReportPage() {
   // 🔹 4) 엑셀 다운로드 핸들러 (Authorization 헤더 포함)
   const handleDownload = async () => {
     try {
-      console.log(API_BASE_URL);
+      console.log(API_URL);
       setLoading(true);
 
-      const res = await fetch(
-        `${API_BASE_URL}/reports/orders-matrix?date=${date}`,
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const res = await fetch(`${API_URL}/reports/orders-matrix?date=${date}`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       if (!res.ok) {
         const text = await res.text();
