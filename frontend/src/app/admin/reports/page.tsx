@@ -52,8 +52,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
-const API_BASE_URL =
-  process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:3001";
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
 
 export default function OrderReportPage() {
   const router = useRouter();
@@ -108,7 +107,7 @@ export default function OrderReportPage() {
       setLoading(true);
 
       const res = await fetch(
-        `${API_BASE_URL}/api/reports/orders-matrix?date=${date}`,
+        `${API_BASE_URL}/reports/orders-matrix?date=${date}`,
         {
           method: "GET",
           headers: {
