@@ -104,6 +104,7 @@ export default function OrderReportPage() {
   // 🔹 4) 엑셀 다운로드 핸들러 (Authorization 헤더 포함)
   const handleDownload = async () => {
     try {
+      console.log(API_BASE_URL);
       setLoading(true);
 
       const res = await fetch(
