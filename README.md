@@ -1,6 +1,6 @@
 # 팜체인(FarmChain) Supabase 연동 스타터
 
-씨알상사 앱의 발주 플로우를 참고해서 만든 **유통사 전용 농산물 주문 관리 웹앱**이며,  
+**유통사 전용 농산물 주문 관리 웹앱**이며,  
 이 버전은 **Supabase PostgreSQL DB와 직접 연결**되도록 구성되어 있습니다.
 
 - 백엔드: Node.js + Express + pg (Supabase 연결)
@@ -56,8 +56,8 @@ npm run dev
 - `/login` 에서 데모 계정으로 로그인:
 
   - 배포용 유통사(DEMO)
-    - 이메일: `dist@farmchain.app`
-    - 비밀번호: `dist1234`
+    - 이메일: `test@farmchain.app`
+    - 비밀번호: `test1234`
 
   - 관리자(DEMO, 아직 별도 Admin UI는 없음)
     - 이메일: `admin@farmchain.app`
